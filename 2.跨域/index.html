@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>注册</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <label for="userName">用户名:</label>
+    <input type="text" name="userName" id="userName">
+    <br>
+    <input type="button" id="register" value="注册">
+    <script>
+        $("#register").click(function () {
+
+            console.log($("#userName").val());
+            $.post({
+                url:"http://frametarget.zhouxv.com:3000/register",
+                data:{userName:$("#userName").val(),},
+                success:function(res){
+                    if(res.errno>0)
+                    alert(res.errmsg);
+                    else{
+                        alert("注册成功");
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
