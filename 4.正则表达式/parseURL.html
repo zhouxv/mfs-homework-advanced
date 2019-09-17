@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function parseURL(str){
+            var reg=/(\w+):\/\/((.*):(\d*))\/(.*)\?(.*)(#.*)/;
+            var array=[];
+            var result=str.match(reg);
+            array["protocol"]=result[1];
+            array["host"]=result[2];
+            array["port"]=result[3];
+            array["hostname"]=result[4];
+            array["pathname"]=result[5];
+            array["hash"]=result[7];
+            array["query"]=result[6];
+            return array;
+        }
+
+        var str="http://work.mafengshe.com:80/question/details?id=24#somehash";
+        var parseResult=parseURL(str);
+        console.log("{");
+        for(var i in parseResult){
+            console.log(i,":",parseResult[i]);
+        }
+        console.log("}");
+    </script>
+</body>
+</html>
