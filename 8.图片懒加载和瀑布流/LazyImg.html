@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <style>
+        .lazy-img {
+            height: 394px;
+            width: 650px;
+            background: yellowgreen;
+        }
+
+        div {
+            height: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <img data-src="fate_1.jpg" alt="">
+    <div></div>
+    <img data-src="fate_2.jpg" alt="">
+    <div></div>
+    <img data-src="fate_3.jpg" alt="">
+    <div></div>
+    <script>
+        function isShow($node) {
+            var winHeight = window.innerHeight;
+            var windowYOffset = window.pageYOffset;
+            var imgHeight = $node.height();
+            var imgYOffset = $node.offset().top;
+            return (imgHeight + imgYOffset >= windowYOffset) && (imgYOffset <= windowYOffset + winHeight);
+        }
+
+
+        var timer=null;
+        function LazyImg($ele) {
+            window.onscroll = function () {
+                clearTimeout(timer);
+                timer=setTimeout(function(){
+                    $ele.each(function(){
+                    var $this=$(this);
+                    if(isShow($this))
+                    $this.attr("src",$this.data("src"));
+                })
+                },100);
+            }
+        }
+
+        new LazyImg($("img"));
+    </script>
+</body>
+
+</html>
