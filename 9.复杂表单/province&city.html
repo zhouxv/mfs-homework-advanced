@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>省市联动</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <form action="">
+        <label>省级
+            <input id="province-in" list="province-dl" onchange="selectProvince()" autocomplete="off">
+            <datalist id="province-dl"></datalist>
+        </label>
+        <label>市级
+            <input id="city-in" list="city-dl" onchange="selectCity()" autocomplete="off">
+            <datalist id="city-dl"></datalist>
+        </label>
+        <label>区级
+            <input id="distinct-in" list="distinct-dl">
+            <datalist id="distinct-dl"></datalist>
+        </label>
+
+    </form>
+    <script>
+        $.ajax({
+            url: "//localhost:3000/getProvince",
+            method: "post",
+            success(data) {
+                var province_datalist = $("#province-dl");
+                for (let i in data) {
+                    var optionNode = document.createElement("option");
+                    optionNode.setAttribute("value", data[i]);
+                    province_datalist.append(optionNode);
+                }
+            }
+        });
+
+        function selectProvince() {
+            $.ajax({
+                url: "//localhost:3000/getCity",
+                data: { "province": $("#province-in").val() },
+                method: "post",
+                success(data) {
+                    var city_datalist = $("#city-dl");
+                    city_datalist.empty();
+                    for (let i in data) {
+                        var optionNode = document.createElement("option");
+                        optionNode.setAttribute("value", data[i]);
+                        city_datalist.append(optionNode);
+                        console.log(data[i])
+                    }
+                }
+            });
+        }
+
+        function selectCity() {
+            $.ajax({
+                url: "//localhost:3000/getDictinct",
+                data: { "province": $("#province-in").val(), "city": $("#city-in").val() },
+                method: "post",
+                success(data){
+                    var distinct_datalist = $("#distinct-dl");
+                    distinct_datalist.empty();
+                    for (let i in data) {
+                        var optionNode = document.createElement("option");
+                        optionNode.setAttribute("value", data[i].name);
+                        distinct_datalist.append(optionNode);
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>
