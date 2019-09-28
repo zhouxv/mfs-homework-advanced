@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+    <body>
+        <div id="app">
+            <img :src="imgUrl" style="width:500px;height:340px" alt="读取失败">
+        </div>
+
+        <script>
+            let a=new Vue({
+                el:'#app',
+                data:{
+                    src:'./fate_3.jpg',
+                },
+                computed:{
+                    imgUrl:{
+                        set:function(urlIndex){
+                            this.src=`./fate_${urlIndex}.jpg`;
+                        },
+                        get:function(){
+                            return this.src;
+                        }
+                    }
+                },
+                mounted:function(){
+                    var i=0;
+                    setInterval(()=>{
+                        this.imgUrl=++i;
+                        if(i==3) i=0;
+                    },1000);
+                }
+            }
+            );            
+        </script>
+    </body>
+</body>
+
+</html>
+
