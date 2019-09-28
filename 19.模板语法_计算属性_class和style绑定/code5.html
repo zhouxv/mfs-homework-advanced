@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <style>
+    .active{
+        color: red;
+        border: red 2px;
+    }
+    </style>
+</head>
+
+<body>
+
+    <body>
+        <div id="app" :class="{active:isActive}">
+            {{isActive}}
+            <button @click='myClick'>toggleIsActive</button>
+        </div>
+        <script>
+            new Vue({
+                el: '#app',
+                data: { isActive: true },
+                methods: {
+                    myClick: function () {
+                        this.isActive=!(this.isActive)
+                    }
+                }
+            }
+            );            
+        </script>
+    </body>
+</body>
+
+</html>
